@@ -1,5 +1,5 @@
 @php
-    $admin = Auth::guard('admin')->user();
+    $admin = \Illuminate\Support\Facades\Auth::guard('admin')->user();
 @endphp
 
 
@@ -140,16 +140,19 @@
                                 </a>
                             </li>
 
-                        </ul>
-                        <hr>
-                        <li>
+                            <li>
                                 <a class='tp-link' href='{{ url('/admin/faculty') }}'>
-                                    <span class="mdi mdi-town-hall" style="font-size: 23px;"></span>
+                                    {{-- <span class="mdi mdi-town-hall" style="font-size: 23px;"></span> --}}
+                                    <i data-feather="layers"></i>
                                     <span> Faculty </span>
                                 </a>
                             </li>
 
-                                                         <li>
+                        </ul>
+                            
+
+                        <ul id="side-menu">
+                            <li>
                                 <a class='tp-link' href='{{ url('/admin/lecturer') }}'>
                                     <span class="mdi mdi-account-school" style="font-size: 23px;"></span>
                                     <span> Lecturer </span>
@@ -170,7 +173,7 @@
                                 </a>
                             </li>
 
-                             <li>
+                            <li>
                                 <a class='tp-link' href='{{ url('/admin/period') }}'>
                                     <span class="mdi mdi-clock-time-nine" style="font-size: 23px;"></span>
                                     <span> Period </span>
@@ -183,7 +186,6 @@
                                     <span> Timetable </span>
                                 </a>
                             </li>
-
                         </ul>
             
                     </div>

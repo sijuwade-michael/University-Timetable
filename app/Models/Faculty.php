@@ -11,7 +11,7 @@ class Faculty extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable=[
-        'name'
-
+        'name',
+        'slug',
     ];
 }
