@@ -1,85 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
+    
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+        <meta charset="utf-8" />
+        <title>Log In | Silva - Responsive Admin Dashboard Template</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc."/>
+        <meta name="author" content="Zoyothemes"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-    <title>{{ config('app.name', 'Laravel Multi Auth Guard') }}</title>
+        <!-- App favicon -->
+        <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}">
 
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <!-- App css -->
+        <link href="{{ asset('assets/css/app.min.css') }}" rel="stylesheet" type="text/css" id="app-style" />
 
-    <!-- Scripts -->
-    <script>
-        window.Laravel = <?php echo json_encode([
-            'csrfToken' => csrf_token(),
-        ]); ?>
-    </script>
-</head>
-<body>
-    <nav class="navbar navbar-default navbar-static-top">
-        <div class="container">
-            <div class="navbar-header">
+        <!-- Icons -->
+        <link href="{{ asset('assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
 
-                <!-- Collapsed Hamburger -->
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
-                    <span class="sr-only">Toggle Navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
+    </head>
 
-                <!-- Branding Image -->
-                <a class="navbar-brand" href="{{ url('/admin') }}">
-                    {{ config('app.name', 'Laravel Multi Auth Guard') }}: Admin
-                </a>
-            </div>
+    <body class="bg-primary-subtle">
+        <!-- Begin page -->
+        <div class="account-page">
+            <div class="container-fluid p-0">
+                <div class="row align-items-center g-0">
 
-            <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                <!-- Left Side Of Navbar -->
-                <ul class="nav navbar-nav">
-                    &nbsp;
-                </ul>
+                    <div class="col-xl-5">
+                        <div class="row">
+                            <div class="col-md-8 mx-auto">
+                                <div class="card p-3 mb-0">
+                                    <div class="card-body">
 
-                <!-- Right Side Of Navbar -->
-                <ul class="nav navbar-nav navbar-right">
-                    <!-- Authentication Links -->
-                    @if (Auth::guest())
-                        <li><a href="{{ url('/admin/login') }}">Login</a></li>
-                        <li><a href="{{ url('/admin/register') }}">Register</a></li>
-                    @else
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                {{ Auth::user()->name }} <span class="caret"></span>
-                            </a>
+                                        <div class="mb-0 border-0 p-md-5 p-lg-0 p-4">
+                                            <div class="mb-4 p-0 text-center">
+                                                <a class='auth-logo' href='{{ url('/admin/login') }}'>
+                                                    <img src="{{ asset('assets/images/logo-dark.png') }}" alt="logo-dark" class="mx-auto" height="28" />
+                                                </a>
+                                            </div>
 
-                            <ul class="dropdown-menu" role="menu">
-                                <li>
-                                    <a href="{{ url('/admin/logout') }}"
-                                        onclick="event.preventDefault();
-                                                 document.getElementById('logout-form').submit();">
-                                        Logout
-                                    </a>
+                                            @yield('content')
+                                        </div>
 
-                                    <form id="logout-form" action="{{ url('/admin/logout') }}" method="POST" style="display: none;">
-                                        {{ csrf_field() }}
-                                    </form>
-                                </li>
-                            </ul>
-                        </li>
-                    @endif
-                </ul>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-xl-7">
+                        <div class="account-page-bg p-md-5 p-4">
+                            <div class="text-center">
+                                <div class="auth-image">
+                                    <img src="{{ asset('assets/images/auth-images.svg') }}" class="mx-auto img-fluid"  alt="images">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
-    </nav>
+        
+        <!-- END wrapper -->
 
-    @yield('content')
+        <!-- Vendor -->
+        <script src="{{ asset('assets/libs/jquery/jquery.min.js') }}"></script>
+        <script src="{{ asset('assets/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+        <script src="{{ asset('assets/libs/simplebar/simplebar.min.js') }}"></script>
+        <script src="{{ asset('assets/libs/node-waves/waves.min.js') }}"></script>
+        <script src="{{ asset('assets/libs/waypoints/lib/jquery.waypoints.min.js') }}"></script>
+        <script src="{{ asset('assets/libs/jquery.counterup/jquery.counterup.min.js') }}"></script>
+        <script src="{{ asset('assets/libs/feather-icons/feather.min.js') }}"></script>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
-</body>
+        <!-- App js-->
+        <script src="{{ asset('assets/js/app.js') }}"></script>
+    </body>
 </html>

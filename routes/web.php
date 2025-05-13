@@ -13,9 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Route::group(['prefix' => 'admin'], function () {
     Route::get('/', [App\Http\Controllers\Admin\Auth\LoginController::class, 'showLoginForm'])->name('admin.login');
@@ -32,5 +32,21 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/password/reset/{token}', [App\Http\Controllers\Admin\Auth\ResetPasswordController::class, 'showResetForm']);
 
     Route::get('/home', [App\Http\Controllers\Admin\AdminController::class, 'index'])->name('home')->middleware(['auth:admin']);
+    Route::get('/faculty', [App\Http\Controllers\Admin\AdminController::class, 'faculty'])->name('faculty')->middleware(['auth:admin']);
+    Route::get('/course', [App\Http\Controllers\Admin\AdminController::class, 'course'])->name('course')->middleware(['auth:admin']);
+    Route::get('/lecturer', [App\Http\Controllers\Admin\AdminController::class, 'lecturer'])->name('lecturer')->middleware(['auth:admin']);
+    Route::get('/period', [App\Http\Controllers\Admin\AdminController::class, 'period'])->name('period')->middleware(['auth:admin']);
+    Route::get('/timetable', [App\Http\Controllers\Admin\AdminController::class, 'timetable'])->name('timetable')->middleware(['auth:admin']);
+    Route::get('/venue', [App\Http\Controllers\Admin\AdminController::class, 'venue'])->name('venue')->middleware(['auth:admin']);
+
+
+    Route::get('/faculties', [App\Http\Controllers\Admin\AdminController::class, 'faculties'])->name('faculties')->middleware(['auth:admin']);
+    Route::get('/facultyadmin', [App\Http\Controllers\Admin\AdminController::class, 'facultyadmin'])->name('facultyadmin')->middleware(['auth:admin']);
+    Route::post('/newFaculty',[App\Http\Controllers\Admin\AdminController::class, 'newFaculty'])->name('newFaculty')->middleware(['auth:admin']);
+    Route::post('/updateFaculty',[App\Http\Controllers\Admin\AdminController::class, 'updateFaculty'])->name('updateFaculty')->middleware(['auth:admin']);
+    Route::get('/viewFaculty/{slug}',[App\Http\Controllers\Admin\AdminController::class, 'viewFaculty'])->name('viewFaculty')->middleware(['auth:admin']);
+    Route::post('/adeleteFaculty', [App\Http\Controllers\Admin\AdminController::class, 'deleteFaculty'])->name('deleteFaculty')->middleware(['auth:admin']);
+
+    
 });
 

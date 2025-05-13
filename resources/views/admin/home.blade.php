@@ -1,17 +1,20 @@
-@extends('admin.layout.auth')
+@extends('admin.layout.dashboard')
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
+<!-- Start Content-->
+<div class="container-fluid">
 
-                <div class="panel-body">
-                    You are logged in as Admin!
-                </div>
-            </div>
+    <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
+        <div class="flex-grow-1">
+            <h4 class="fs-18 fw-semibold m-0">Dashboard</h4>
         </div>
-    </div>
-</div>
+
+        <div class="text-end">
+            <ol class="breadcrumb m-0 py-0">
+                <li class="breadcrumb-item active">Dashboard</li>
+            </ol>
+        </div>
+    </div>     
+    
+</div> <!-- container-fluid -->
 @endsection
