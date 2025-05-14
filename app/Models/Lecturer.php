@@ -13,7 +13,7 @@ class Lecturer extends Model
     protected $fillable=[
         'last_name',
         'other_names',
-        'title'
-
+        'title',
+        'slug'
     ];
 }

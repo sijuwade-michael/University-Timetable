@@ -49,7 +49,10 @@ class AdminController extends Controller
     }
 
     public function lecturer(){
-        return view('admin.lecturer');
+        $lecturers = Lecturer::all();
+        return view('admin.lecturer', [
+            'lecturers' => $lecturers,
+        ]);
     }
     
     public function period(){
@@ -147,6 +150,73 @@ class AdminController extends Controller
         return redirect()->back();
     }
 
+
+
+
+
+
+    public function newLecturer(Request $request){
+        $validator = Validator::make($request->all(), [
+            'last_name' => 'required|string|max:255',
+            'other_names' => 'required|string|max:255',
+            'title' => 'required|string|max:255',
+        ]);
+
+        if ($validator->fails()) {
+            alert()->error('Validation Error', $validator->messages()->first())->persistent('Close');
+            return redirect()->back()->withInput();
+        }
+
+        $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $request->last_name . '-' . $request->other_names)));
+
+        $lecturer = new Lecturer([
+            'last_name' => $request->last_name,
+            'other_names' => $request->other_names,
+            'title' => $request->title,
+            'slug' => $slug,
+        ]);
+
+        if ($lecturer->save()) {
+            alert()->success('Success', 'Lecturer created successfully')->persistent('Close');
+        } else {
+            alert()->error('Error', 'Failed to create lecturer')->persistent('Close');
+        }
+
+        return redirect()->back();
+    }
+
+
+    public function updateLecturer(Request $request){
+        $validator = Validator::make($request->all(), [
+            'lecturer_id' => 'required|exists:lecturers,id',
+        ]);
+
+        if ($validator->fails()) {
+            alert()->error('Validation Error', $validator->messages()->first())->persistent('Close');
+            return redirect()->back()->withInput();
+        }
+
+        $lecturer = Lecturer::findOrFail($request->lecturer_id);
+
+        $newSlug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $request->last_name . '-' . $request->other_names)));
+
+        $lecturer->last_name = $request->last_name;
+        $lecturer->other_names = $request->other_names;
+        $lecturer->title = $request->title;
+        $lecturer->slug = $newSlug;
+
+        if ($lecturer->isDirty()) {
+            if ($lecturer->save()) {
+                alert()->success('Success', 'Lecturer updated successfully')->persistent('Close');
+            } else {
+                alert()->error('Error', 'Failed to update lecturer')->persistent('Close');
+            }
+        } else {
+            alert()->info('No Changes', 'No updates were made')->persistent('Close');
+        }
+
+        return redirect()->back();
+    }
 
 
 
