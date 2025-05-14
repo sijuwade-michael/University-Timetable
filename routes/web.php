@@ -46,5 +46,9 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('/deleteFaculty', [App\Http\Controllers\Admin\AdminController::class, 'deleteFaculty'])->name('deleteFaculty')->middleware(['auth:admin']);
 
     
+    Route::get('/lecturer', [App\Http\Controllers\Admin\AdminController::class, 'lecturer'])->name('lecturer')->middleware(['auth:admin']);
+    Route::post('/newLecturer',[App\Http\Controllers\Admin\AdminController::class, 'newLecturer'])->name('newLecturer')->middleware(['auth:admin']);
+    Route::post('/updateFaculty',[App\Http\Controllers\Admin\AdminController::class, 'updateFaculty'])->name('updateFaculty')->middleware(['auth:admin']);
+    Route::post('/deleteFaculty', [App\Http\Controllers\Admin\AdminController::class, 'deleteFaculty'])->name('deleteFaculty')->middleware(['auth:admin']);
 });
 
