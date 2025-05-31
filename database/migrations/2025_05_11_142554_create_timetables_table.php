@@ -15,11 +15,15 @@ return new class extends Migration
     {
         Schema::create('timetables', function (Blueprint $table) {
             $table->id();
-            $table->string('faculty_id');
-            $table->string('course_id');
-            $table->string('academic_period');
-            $table->integer('lecture_arrangement');
+            $table->string('faculty_id')->nullable();
+            $table->string('course_id')->nullable();
+            $table->integer('course_unit')->nullable();
+            $table->string('venue')->nullable();
+            $table->string('academic_period')->nullable();
+            $table->integer('lecture_arrangement')->nullable();
+            $table->string('slug')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

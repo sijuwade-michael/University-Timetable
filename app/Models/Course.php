@@ -15,7 +15,23 @@ class Course extends Model
         'faculty_id',
         'course_code',
         'course_title',
-        'lecturer_id'
+        'course_unit',
+        'lecturer_id',
+        'venue',
+        'slug'
     ];
+
+    public function faculty() {
+    return $this->belongsTo(Faculty::class);
+    }   
+
+    public function lecturer() {
+    return $this->belongsTo(Lecturer::class);
+    }
+
+    public function venue() {
+    return $this->belongsTo(Venue::class);
+    }
+    
 
 }

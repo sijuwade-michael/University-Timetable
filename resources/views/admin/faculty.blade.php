@@ -1,6 +1,4 @@
-@extends('admin.layout.dashboard')
-
-@section('content')
+@extends('admin.layout.dashboard') @section('content')
 
 <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
     <div class="flex-grow-1">
@@ -44,7 +42,7 @@
                             <div class="modal-dialog">
                                 <form action="{{ url('/admin/updateFaculty') }}" method="POST">
                                     @csrf
-                                    <input type="hidden" name="faculty_id" value="{{ $faculty->id }}">
+                                    <input type="hidden" name="faculty_id" value="{{ $faculty->id }}" />
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title">Edit Faculty</h5>
@@ -53,7 +51,7 @@
                                         <div class="modal-body">
                                             <div class="mb-3">
                                                 <label>Faculty Name *</label>
-                                                <input type="text" name="name" class="form-control" value="{{ $faculty->name }}" required>
+                                                <input type="text" name="name" class="form-control" value="{{ $faculty->name }}" required />
                                             </div>
                                         </div>
                                         <div class="modal-footer">
@@ -73,10 +71,13 @@
                                         <div class="text-end">
                                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                         </div>
-                                        <h5 class="my-4">Are you sure you want to delete <br><strong>{{ $faculty->name }}</strong>?</h5>
+                                        <h5 class="my-4">
+                                            Are you sure you want to delete <br />
+                                            <strong>{{ $faculty->name }}</strong>?
+                                        </h5>
                                         <form action="{{ url('/admin/deleteFaculty') }}" method="POST">
                                             @csrf
-                                            <input type="hidden" name="faculty_id" value="{{ $faculty->id }}">
+                                            <input type="hidden" name="faculty_id" value="{{ $faculty->id }}" />
                                             <div class="d-grid">
                                                 <button type="submit" class="btn btn-danger">Yes, Delete</button>
                                             </div>
@@ -107,7 +108,7 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label>Faculty Name *</label>
-                        <input type="text" name="name" class="form-control" required>
+                        <input type="text" name="name" class="form-control" required />
                     </div>
                 </div>
                 <div class="modal-footer">

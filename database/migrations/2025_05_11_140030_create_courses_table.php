@@ -15,11 +15,16 @@ return new class extends Migration
     {
         Schema::create('courses', function (Blueprint $table) {
             $table->id();
-            $table->string('faculty_id');
-            $table->string('course_code');
-            $table->string('course_title');
-            $table->string('lecturer_id');
+            $table->string('faculty_id')->nullable();
+            $table->string('course_code')->nullable();
+            $table->string('course_title')->nullable();
+            $table->integer('course_unit')->nullable();
+            $table->string('lecturer_id')->nullable();
+            $table->string('venue')->nullable();
+            $table->string('slug')->nullable();
             $table->timestamps();
+            $table->softDeletes();
+
         });
     }
 
