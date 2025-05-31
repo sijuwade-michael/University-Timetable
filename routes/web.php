@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -38,7 +39,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/period', [App\Http\Controllers\Admin\AdminController::class, 'period'])->name('period')->middleware(['auth:admin']);
     Route::get('/timetable', [App\Http\Controllers\Admin\AdminController::class, 'timetable'])->name('timetable')->middleware(['auth:admin']);
     Route::get('/venue', [App\Http\Controllers\Admin\AdminController::class, 'venue'])->name('venue')->middleware(['auth:admin']);
-
+    Route::get('/table', [App\Http\Controllers\Admin\AdminController::class, 'table'])->name('table')->middleware(['auth:admin']);
 
     Route::get('/faculties', [App\Http\Controllers\Admin\AdminController::class, 'faculties'])->name('faculties')->middleware(['auth:admin']);
     Route::post('/newFaculty',[App\Http\Controllers\Admin\AdminController::class, 'newFaculty'])->name('newFaculty')->middleware(['auth:admin']);
@@ -71,6 +72,16 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('/updateTimetable',[App\Http\Controllers\Admin\AdminController::class, 'updateTimetable'])->name('updateTimetable')->middleware(['auth:admin']);
     Route::post('/deleteTimetable', [App\Http\Controllers\Admin\AdminController::class, 'deleteTimetable'])->name('deleteTimetable')->middleware(['auth:admin']);
 
+    Route::get('/admin/timetable', [App\Http\Controllers\Admin\AdminController::class, 'timetable'])->name('admin.timetable');
 
+//     Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin']], function () {
+    
+
+//     Route::get('/faculties/{facultyId}/courses', [App\Http\Controllers\Admin\AdminController::class, 'getCoursesByFaculty'])->name('admin.faculty.courses');
+// });
+    Route::get('/get-courses', [App\Http\Controllers\Admin\AdminController::class, 'getCourses']);
+
+    
+    
 });
 

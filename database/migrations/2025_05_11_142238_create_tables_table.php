@@ -15,8 +15,10 @@ return new class extends Migration
     {
         Schema::create('course_infos', function (Blueprint $table) {
             $table->id();
-            $table->string('course_id');
-            $table->string('lecturer_id');
+            $table->string('day')->nullable();
+            $table->integer('slot')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -27,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('course_infos');
+        Schema::dropIfExists('tables');
     }
 };

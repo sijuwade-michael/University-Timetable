@@ -10,12 +10,14 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Validator;
+use DB;
 
 use App\Models\Course;
 use App\Models\Lecturer;
 use App\Models\Period;
 use App\Models\Timetable;
 use App\Models\Venue;
+use App\Models\Table;
 use App\Models\Faculty;
 use App\Models\Admin;
 
@@ -32,6 +34,22 @@ class AdminController extends Controller
         $admin = Auth::guard('admin')->user();
         return view('admin.home', ['admin' => $admin]);
     }
+
+    // public function getCoursesByFaculty($facultyId)
+    // {
+    //     $faculty = Faculty::with('courses')->find($facultyId);
+
+    //     if (!$faculty) {
+    //         return response()->json(['message' => 'Faculty not found'], 404);
+    //     }
+
+    //     return response()->json([
+    //         'faculty' => $faculty->name,
+    //         'courses' => $faculty->courses,
+    //     ]);
+    // }
+
+
 
     public function faculty()
     {
@@ -54,6 +72,38 @@ class AdminController extends Controller
         $lecturers = Lecturer::all();
         return view('admin.lecturer', ['lecturers' => $lecturers]);
     }
+
+    // public function table()
+    // {
+    //     $tables = Table::all();
+    //     return view('admin.table', ['tables' => $tables]);
+    // }
+   public function table(){
+    $tables = Table::all();
+
+    $timetable = [];
+
+    foreach ($tables as $row) {
+        $day = $row->day;
+        $timeslot = $row->timeslot;
+        $course = $row->course;
+
+        if (!isset($timetable[$day])) {
+            $timetable[$day] = [];
+        }
+        if (!isset($timetable[$day][$timeslot])) {
+            $timetable[$day][$timeslot] = [];
+        }
+
+        $timetable[$day][$timeslot][] = $course;
+    }
+
+    return view('admin.table', ['tables' => $timetable]);
+}
+
+
+
+
 
     public function period()
     {
@@ -101,6 +151,55 @@ class AdminController extends Controller
             'timetables' => $timetables,
         ]);
     }
+
+
+
+    // public function Timetable(){
+    //     $faculty_list = DB::table('faculties')
+    //                     ->groupBy('name')
+    //                     ->get();
+
+    //     return view('timetable')->with('faculty_list', $faculty_list);
+    // }
+
+    // public function fetch(Request $request)
+    // {
+    //     $select = $request->get('select'); // e.g., 'faculty_id'
+    //     $value = $request->get('value');   // selected faculty id
+    //     $dependent = $request->get('dependent'); // 'course'
+
+    //     $data = DB::table('courses')
+    //             ->where($select, $value)
+    //             ->groupBy($dependent)
+    //             ->get();
+
+    //     $output = '<option value="">Select ' . ucfirst($dependent) . '</option>';
+    //     foreach ($data as $row) {
+    //         $output .= '<option value="' . $row->$dependent . '">' . $row->$dependent . '</option>';
+    //     }
+
+    //     echo $output;
+    // }
+
+
+
+
+    // public function timetable(Request $request){
+    //     $faculties = Faculty::with('courses')->get();
+    //     $selectedFacultyId = $request->input('faculty_id');
+
+    //     $courses = collect();
+    //     if ($selectedFacultyId) {
+    //         $faculty = Faculty::with('courses')->find($selectedFacultyId);
+    //         if ($faculty) {
+    //             $courses = $faculty->courses;
+    //         }
+    //     }
+
+    //     $timetables = Timetable::all(); 
+
+    //     return view('admin.timetable', compact('faculties', 'courses', 'selectedFacultyId', 'timetables'));
+    // }
 
 
 
@@ -494,11 +593,13 @@ class AdminController extends Controller
 
 
 
+    public function getCourses(Request $request){
+        $data['courses'] = Course::where('faculty_id', $request->faculty_id)
+                                ->get(['name', 'id']);
+        return response()->json($data);
+    }
+
 
     
-
-
-
-
 
 }

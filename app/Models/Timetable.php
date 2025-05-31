@@ -19,6 +19,6 @@ class Timetable extends Model
         'slug'
     ];
 
-
+    
 
 }

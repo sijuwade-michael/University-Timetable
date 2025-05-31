@@ -32,11 +32,6 @@ class Course extends Model
     public function venue() {
     return $this->belongsTo(Venue::class);
     }
-
-     public function course() {
-    return $this->belongsTo(Faculty::class);
-    } 
-
     
 
 }
