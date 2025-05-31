@@ -11,8 +11,12 @@ class Period extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable=[
-        'time'
+        'start_time',
+        'end_time',
+        'label'
 
     ];
+
+    
 
 }

@@ -25,16 +25,14 @@
                 <table id="key-table" class="table table-bordered dt-responsive nowrap">
                     <thead>
                         <tr>
-                            <th>Lastname</th>
-                            <th>Othernames</th>
+                            <th>Name</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($lecturers as $lecturer)
                         <tr>
-                            <td>{{ $lecturer->last_name }}</td>
-                            <td>{{ $lecturer->other_names }}</td>
+                            <td>{{ $lecturer->name }}</td>
                             <td>
                                 <button class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#editLecturer{{ $lecturer->id }}">Edit</button>
                                 <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteLecturer{{ $lecturer->id }}">Delete</button>
@@ -54,20 +52,8 @@
                                         </div>
                                         <div class="modal-body">
                                             <div class="mb-3">
-                                                <label>>Title *</label>
-                                                <input type="text" name="title" class="form-control" value="{{ $lecturer->title }}" required>
-                                            </div>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="mb-3">
-                                                <label>>Lastname *</label>
-                                                <input type="text" name="last_name" class="form-control" value="{{ $lecturer->last_name }}" required>
-                                            </div>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="mb-3">
-                                                <label>>Othernames *</label>
-                                                <input type="text" name="other_names" class="form-control" value="{{ $lecturer->other_names }}" required>
+                                                <label>>Name</label>
+                                                <input type="text" name="name" class="form-control" value="{{ $lecturer->name }}" required>
                                             </div>
                                         </div>
                                         <div class="modal-footer">
@@ -79,18 +65,18 @@
                             </div>
                         </div>
 
-                        {{-- <!-- Delete Faculty Modal -->
-                        <div class="modal fade" id="deleteFaculty{{ $faculty->id }}" tabindex="-1" aria-hidden="true">
+                        <!-- Delete Faculty Modal -->
+                        <div class="modal fade" id="deleteLecturer{{ $lecturer->id }}" tabindex="-1" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content">
                                     <div class="modal-body text-center p-4">
                                         <div class="text-end">
                                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                         </div>
-                                        <h5 class="my-4">Are you sure you want to delete <br><strong>{{ $faculty->name }}</strong>?</h5>
-                                        <form action="{{ url('/admin/deleteFaculty') }}" method="POST">
+                                        <h5 class="my-4">Are you sure you want to delete <br><strong>{{ $lecturer->name }}</strong>?</h5>
+                                        <form action="{{ url('/admin/deleteLecturer') }}" method="POST">
                                             @csrf
-                                            <input type="hidden" name="faculty_id" value="{{ $faculty->id }}">
+                                            <input type="hidden" name="lecturer_id" value="{{ $lecturer->id }}">
                                             <div class="d-grid">
                                                 <button type="submit" class="btn btn-danger">Yes, Delete</button>
                                             </div>
@@ -98,7 +84,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div> --}}
+                        </div>
 
                         @endforeach
                     </tbody>
@@ -119,20 +105,10 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-
                     <div class="mb-3">
-                        <label>Title *</label>
-                        <input type="text" name="title" class="form-control" required>
+                        <label>Name</label>
+                        <input type="text" name="name" class="form-control" required>
                     </div>
-                    <div class="mb-3">
-                        <label>Lastname *</label>
-                        <input type="text" name="last_name" class="form-control" required>
-                    </div>
-                    <div class="mb-3">
-                        <label>Othernames *</label>
-                        <input type="text" name="other_names" class="form-control" required>
-                    </div>
-                </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-success">Add Lecturer</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>

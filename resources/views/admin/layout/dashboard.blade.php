@@ -186,7 +186,15 @@
                                     <span> Timetable </span>
                                 </a>
                             </li>
+                            <li>
+                                <a class='tp-link' href='{{ url('/admin/table') }}'>
+                                    <span class="mdi mdi-calendar-clock" style="font-size: 23px;"></span>
+                                    <span> Table </span>
+                                </a>
+                            </li>
                         </ul>
+
+                        
             
                     </div>
                     <!-- End Sidebar -->

@@ -11,5 +11,6 @@ class Venue extends Model
     use HasFactory, SoftDeletes;
     protected $fillable=[
         'name',
+        'slug'
     ];
 }
