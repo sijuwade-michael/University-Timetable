@@ -1,5 +1,5 @@
 @php
-    $admin = \Illuminate\Support\Facades\Auth::guard('admin')->user();
+    $admin = Auth::guard('admin')->user();
 @endphp
 
 
@@ -24,17 +24,10 @@
         <!-- Icons -->
         <link href="{{ asset('assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
 
-        <!-- Datatables css -->
-        <link href="{{ asset('assets/libs/datatables.net-bs5/css/dataTables.bootstrap5.min.css') }}" rel="stylesheet" type="text/css" />
-        <link href="{{ asset('assets/libs/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css') }}" rel="stylesheet" type="text/css" />
-        <link href="{{ asset('assets/libs/datatables.net-keytable-bs5/css/keyTable.bootstrap5.min.css') }}" rel="stylesheet" type="text/css" />
-        <link href="{{ asset('assets/libs/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css') }}" rel="stylesheet" type="text/css" />
-        <link href="{{ asset('assets/libs/datatables.net-select-bs5/css/select.bootstrap5.min.css') }}" rel="stylesheet" type="text/css" />
-
     </head>
 
     <!-- body start -->
-    <body data-menu-color="light" data-sidebar="default">
+    <body data-menu-color="light" data-sidebar="default"
 
         <!-- Begin page -->
         <div id="app-layout">
@@ -141,60 +134,66 @@
                             </li>
 
                             <li>
-                                <a class='tp-link' href='{{ url('/admin/faculty') }}'>
-                                    {{-- <span class="mdi mdi-town-hall" style="font-size: 23px;"></span> --}}
-                                    <i data-feather="layers"></i>
-                                    <span> Faculty </span>
-                                </a>
-                            </li>
-
-                        </ul>
-                            
-
-                        <ul id="side-menu">
-                            <li>
-                                <a class='tp-link' href='{{ url('/admin/lecturer') }}'>
-                                    <span class="mdi mdi-account-school" style="font-size: 23px;"></span>
-                                    <span> Lecturer </span>
+                                <a class='tp-link' href='{{ url('/admin/faculties') }}'>
+                                    <i data-feather="home"></i>
+                                    <span> Faculties </span>
                                 </a>
                             </li>
 
                             <li>
-                                <a class='tp-link' href='{{ url('/admin/venue') }}'>
-                                    <span class="mdi mdi-calendar-clock" style="font-size: 23px;"></span>
-                                    <span> Venue </span>
+                                <a class='tp-link' href='{{ url('/admin/lecturers') }}'>
+                                    <i data-feather="home"></i>
+                                    <span> Lecturers </span>
                                 </a>
                             </li>
 
                             <li>
-                                <a class='tp-link' href='{{ url('/admin/course') }}'>
-                                    <span class="mdi mdi-book-open-variant"  style="font-size: 23px;"></span>
+                                <a class='tp-link' href='{{ url('/admin/venues') }}'>
+                                    <i data-feather="home"></i>
+                                    <span> Venues </span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class='tp-link' href='{{ url('/admin/periods') }}'>
+                                    <i data-feather="home"></i>
+                                    <span> Periods </span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class='tp-link' href='{{ url('/admin/academicDetails') }}'>
+                                    <i data-feather="home"></i>
+                                    <span> Academic Details </span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class='tp-link' href='{{ url('/admin/courses') }}'>
+                                    <i data-feather="home"></i>
                                     <span> Courses </span>
                                 </a>
                             </li>
 
                             <li>
-                                <a class='tp-link' href='{{ url('/admin/period') }}'>
-                                    <span class="mdi mdi-clock-time-nine" style="font-size: 23px;"></span>
-                                    <span> Period </span>
+                                <a href="#sidebarExpages" data-bs-toggle="collapse">
+                                    <i data-feather="file-text"></i>
+                                    <span> Timetables </span>
+                                    <span class="menu-arrow"></span>
                                 </a>
+                                <div class="collapse" id="sidebarExpages">
+                                    <ul class="nav-second-level">
+                                        <li>
+                                            <a class='tp-link' href='{{ url('/admin/timetables') }}'>Add Timetable Entry</a>
+                                        </li>
+                                        <li>
+                                            <a class='tp-link' href='{{ url('/admin/allTimetables') }}'>All Timetable Entry</a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </li>
 
-                            <li>
-                                <a class='tp-link' href='{{ url('/admin/timetable') }}'>
-                                    <span class="mdi mdi-calendar-clock" style="font-size: 23px;"></span>
-                                    <span> Timetable </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class='tp-link' href='{{ url('/admin/table') }}'>
-                                    <span class="mdi mdi-calendar-clock" style="font-size: 23px;"></span>
-                                    <span> Table </span>
-                                </a>
-                            </li>
                         </ul>
-
-                        
             
                     </div>
                     <!-- End Sidebar -->
@@ -246,42 +245,8 @@
         <script src="{{ asset('assets/libs/jquery.counterup/jquery.counterup.min.js') }}"></script>
         <script src="{{ asset('assets/libs/feather-icons/feather.min.js') }}"></script>
 
-
-
         <!-- App js-->
         <script src="{{ asset('assets/js/app.js') }}"></script>
-
-        <!-- Datatables js -->
-        <script src="{{ asset('assets/libs/datatables.net/js/jquery.dataTables.min.js') }}"></script>
-
-        <!-- dataTables.bootstrap5 -->
-        <script src="{{ asset('assets/libs/datatables.net-bs5/js/dataTables.bootstrap5.min.js') }}"></script>
-        <script src="{{ asset('assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
-
-        <!-- buttons.colVis -->
-        <script src="{{ asset('assets/libs/datatables.net-buttons/js/buttons.colVis.min.js') }}"></script>
-        <script src="{{ asset('assets/libs/datatables.net-buttons/js/buttons.flash.min.js') }}"></script>
-        <script src="{{ asset('assets/libs/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
-        <script src="{{ asset('assets/libs/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
-
-        <!-- buttons.bootstrap5 -->
-        <script src="{{ asset("assets/libs/datatables.net-buttons-bs5/js/buttons.bootstrap5.min.js") }}"></script>
-
-        <!-- dataTables.keyTable -->
-        <script src="{{ asset('assets/libs/datatables.net-keytable/js/dataTables.keyTable.min.js') }}"></script>
-        <script src="{{ asset('assets/libs/datatables.net-keytable-bs5/js/keyTable.bootstrap5.min.js') }}"></script>
-
-        <!-- dataTable.responsive -->
-        <script src="{{ asset('assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
-        <script src="{{ asset('assets/libs/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js') }}"></script>
-
-        <!-- dataTables.select -->
-        <script src="{{ asset('assets/libs/datatables.net-select/js/dataTables.select.min.js') }}"></script>
-        <script src="{{ asset('assets/libs/datatables.net-select-bs5/js/select.bootstrap5.min.js') }}"></script>
-
-        <!-- Datatable Demo App Js -->
-        <script src="{{ asset('assets/js/pages/datatable.init.js') }}"></script>
-        
         
     </body>
 

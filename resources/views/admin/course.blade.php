@@ -37,11 +37,11 @@
                     <tbody>
                         @foreach ($courses as $course)
                         <tr>
-                            <td>{{ $course->faculty_id }}</td>
+                            <td>{{ $course->faculty?->name }}</td>
                             <td>{{ $course->course_code }}</td>
                             <td>{{ $course->course_title }}</td>
-                             <td>{{ $course->course_unit }}</td>
-                            <td>{{ $course->lecturer_id}}</td>
+                            <td>{{ $course->course_unit }}</td>
+                            <td>{{ $course->lecturer->name }}</td>
                             <td>{{ $course->venue}}</td>
                             <td>
                                 <button class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#editCourse{{ $course->id }}">Edit</button>
@@ -157,7 +157,7 @@
                     <select name="faculty_id" class="form-control" required>
                         <option value="">-- Select Faculty --</option>
                     @foreach($faculties as $faculty)
-                        <option value="{{ $faculty->name }}">{{ $faculty->name }}</option>
+                        <option value="{{ $faculty->id }}">{{ $faculty->name }}</option>
                     @endforeach
                     </select>
                 </div>
@@ -191,7 +191,7 @@
                 <select name="lecturer_id" class="form-control" required>
                     <option value="">-- Select Lecturer --</option>
                     @foreach($lecturers as $lecturer)
-                        <option value="{{ $lecturer->name }}">{{ $lecturer->name }}</option>
+                        <option value="{{ $lecturer->id }}">{{ $lecturer->name }}</option>
                     @endforeach
                 </select>
             </div>
