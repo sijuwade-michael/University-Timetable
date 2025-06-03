@@ -35,14 +35,18 @@
                         @isset($timetables)
                             @foreach ($timetables as $timetable)
                                 <tr>
-                                    <td>{{ $timetable->faculty_id }}</td>
+                                    <td>{{ $timetable->faculty->name ?? 'N/A' }}</td>
                                     <td>{{ $timetable->academic_period }}</td>
-                                    <td>{{ $timetable->course_id }}</td>
+                                    <td>{{ $timetable->course->title ?? 'N/A' }}</td>
                                     <td>{{ $timetable->course_unit }}</td>
                                     <td>{{ $timetable->venue }}</td>
                                     <td>
-                                        <button class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#editTimetable{{ $timetable->id }}">Edit</button>
-                                        <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteTimetable{{ $timetable->id }}">Delete</button>
+                                        <a href="{{ route('timetables.edit', $timetable->id) }}" class="btn btn-sm btn-info">Edit</a>
+                                        <form action="{{ route('timetables.destroy', $timetable->id) }}" method="POST" style="display:inline;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach
@@ -57,57 +61,74 @@
 <!-- Add Timetable Modal -->
 <div class="modal fade" id="addTimetable" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg">
-        <form method="GET" action="{{ route('admin.timetable') }}">
+        <form method="POST" action="{{ url('') }}">
+            @csrf
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Add New Timetable</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-              <div class="modal-body">
-                <!-- Faculty Dropdown -->
-                <div class="mb-3">
-                    <label for="faculty_id" class="form-label">Faculty</label>
-                    <select id="faculty_id" name="faculty_id" class="form-select" required>
-                        <option value="">-- Select Faculty --</option>
-                        @foreach($faculties as $faculty)
-                            <option value="{{ $faculty->id }}">{{ $faculty->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-
-                <!-- Row for Courses, Venue, and Course Unit -->
-                <div class="row mb-5">
-                    <!-- Courses -->
-                    <div class="col-md-4">
-                        <label class="form-label">Courses</label>
-                        <select id="course_id" name="course_id" class="form-select form-select-sm" required>
-                            <option value="">-- Select Courses --</option>
+                <div class="modal-body">
+                    <!-- Faculty Dropdown -->
+                    <div class="mb-3">
+                        <label for="faculty_id" class="form-label">Faculty</label>
+                        <select id="faculty_id" name="faculty_id" class="form-select" required>
+                            <option value="">-- Select Faculty --</option>
+                            @foreach($faculties as $faculty)
+                                <option value="{{ $faculty->id }}">{{ $faculty->name }}</option>
+                            @endforeach
                         </select>
+                        @error('faculty_id')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
                     </div>
 
-                    <!-- Venue -->
-                    <div class="col-md-4">
-                        <label class="form-label">Venue</label>
-                        <select id="venue" name="venue" class="form-select form-select-sm" required>
-                            <option value="">-- Select Venue --</option>
-                        </select>
+                    <!-- Row for Course, Venue, and Course Unit -->
+                    <div class="row mb-4">
+                        <!-- Course -->
+                        <div class="col-md-4">
+                            <label for="course_id" class="form-label">Course</label>
+                            <select id="course_id" name="course_id" class="form-select" required>
+                                <option value="">-- Select Course --</option>
+                            </select>
+                            @error('course_id')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+
+                        <!-- Venue -->
+                        <div class="col-md-4">
+                            <label for="venue" class="form-label">Venue</label>
+                            <select id="venue" name="venue" class="form-select" required>
+                                <option value="">-- Select Venue --</option>
+                            </select>
+                            @error('venue')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+
+                        <!-- Course Unit -->
+                        <div class="col-md-4">
+                            <label for="course_unit" class="form-label">Course Unit</label>
+                            <select id="course_unit" name="course_unit" class="form-select" required>
+                                <option value="">-- Select Course Unit --</option>
+                            </select>
+                            @error('course_unit')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
                     </div>
 
-                    <!-- Course Unit -->
-                    <div class="col-md-4">
-                        <label class="form-label">Course Unit</label>
-                        <select id="course_unit" name="course_unit" class="form-select form-select-sm" required>
-                            <option value="">-- Select Course Unit --</option>
-                        </select>
+                    <!-- Academic Period -->
+                    <div class="mb-3">
+                        <label class="form-label">Academic Period</label>
+                        <input type="text" name="academic_period" class="form-control" required>
+                        @error('academic_period')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
                     </div>
                 </div>
 
-                <!-- Academic Period with extra space above -->
-                <div class="mb-3">
-                    <label class="form-label">Academic Period</label>
-                    <input type="text" name="academic_period" class="form-control" required>
-                </div>
-            </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">Add Timetable</button>
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
@@ -116,26 +137,56 @@
         </form>
     </div>
 </div>
-<script>
-$('#faculty').change(function() {
-    var facultyID = $(this).val();
-    if (facultyID) {
-        $.ajax({
-            url: '/get-courses?faculty_id=' + facultyID,
-            type: "GET",
-            dataType: "json",
-            success: function(data) {
-                $('#course').empty();
-                $.each(data.courses, function(key, value) {
-                    $('#course').append('<option value="' + value.id + '">' + value.name + '</option>');
-                });
-            }
-        });
-    }
-});
-</script>
-
-
 @endsection
 
+@push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const facultySelect = document.getElementById('faculty_id');
+    const courseSelect = document.getElementById('course_id');
+    const venueSelect = document.getElementById('venue');
+    const courseUnitSelect = document.getElementById('course_unit');
 
+    facultySelect.addEventListener('change', function () {
+        const facultyId = this.value;
+        courseSelect.innerHTML = '<option value="">Loading...</option>';
+        axios.get("{{ url('admin/getCourses') }}", {
+            params: { faculty_id: facultyId }
+        }).then(response => {
+            const courses = response.data.courses;
+            courseSelect.innerHTML = '<option value="">-- Select Course --</option>';
+            courses.forEach(course => {
+                const option = document.createElement('option');
+                option.value = course.id;
+                option.textContent = course.title;
+                courseSelect.appendChild(option);
+            });
+            // Reset related fields
+            venueSelect.innerHTML = '<option value="">-- Select Venue --</option>';
+            courseUnitSelect.innerHTML = '<option value="">-- Select Course Unit --</option>';
+        }).catch(error => {
+            courseSelect.innerHTML = '<option value="">Failed to load courses</option>';
+            console.error(error);
+        });
+    });
+
+    courseSelect.addEventListener('change', function () {
+        const courseId = this.value;
+        venueSelect.innerHTML = '<option value="">Loading...</option>';
+        courseUnitSelect.innerHTML = '<option value="">Loading...</option>';
+        axios.get("{{ url('admin/getCourseDetails') }}", {
+            params: { course_id: courseId }
+        }).then(response => {
+            const course = response.data.course;
+            venueSelect.innerHTML = `<option value="${course.venue}">${course.venue}</option>`;
+            courseUnitSelect.innerHTML = `<option value="${course.course_unit}">${course.course_unit}</option>`;
+        }).catch(error => {
+            venueSelect.innerHTML = '<option value="">Failed to load</option>';
+            courseUnitSelect.innerHTML = '<option value="">Failed to load</option>';
+            console.error(error);
+        });
+    });
+});
+</script>
+@endpush

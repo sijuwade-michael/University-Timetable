@@ -11,16 +11,16 @@ return new class extends Migration
      *
      * @return void
      */
-        public function up()
+    public function up()
     {
-        Schema::table('periods', function (Blueprint $table) {
-            $table->time('start_time')->change();
-            $table->time('end_time')->change();
+        Schema::create('faculties', function (Blueprint $table) {
+            $table->id();
+            $table->string('name')->nullable();
+            $table->string('slug')->nullable();   
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
-
-
-
 
     /**
      * Reverse the migrations.
@@ -28,10 +28,7 @@ return new class extends Migration
      * @return void
      */
     public function down()
-{
-    Schema::table('periods', function (Blueprint $table) {
-        $table->timestamp('start_time')->change();
-        $table->timestamp('end_time')->change();
-    });
-}
+    {
+        Schema::dropIfExists('faculties');
+    }
 };

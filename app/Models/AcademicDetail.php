@@ -6,18 +6,22 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Venue extends Model
+class AcademicDetail extends Model
 {
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'name',
-        'slug',
-        'code',
+        'academic_year',
+        'semester',
     ];
 
-    public function timetables(){
-        return $this->hasMany(Timetable::class);
+
+
+    /**
+     * Get the course that owns the academic detail.
+     */
+    public function courses(){
+        return $this->hasMany(Course::class);
     }
 
 }

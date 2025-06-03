@@ -13,10 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('course_infos', function (Blueprint $table) {
+        Schema::create('academic_details', function (Blueprint $table) {
             $table->id();
-            $table->string('day')->nullable();
-            $table->integer('slot')->nullable();
+            $table->string('academic_year')->nullable(); 
+            $table->enum('semester', ['Harmattan', 'Rain'])->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tables');
+        Schema::dropIfExists('academic_details');
     }
 };

@@ -9,16 +9,36 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Timetable extends Model
 {
     use HasFactory, SoftDeletes;
-    protected $fillable=[
+
+    protected $fillable = [
         'faculty_id',
         'course_id',
-        'course_unit',
-        'course_unit',
-        'academic_period',
-        'lecture_arrangement',
-        'slug'
+        'academic_detail_id',
+        'slug',
+        'venue_id',
+        'period_id',
     ];
 
-    
+
+    public function faculty(){
+        return $this->belongsTo(Faculty::class);
+    }
+
+    public function course(){
+        return $this->belongsTo(Course::class);
+    }
+
+    public function academicDetail(){
+        return $this->belongsTo(AcademicDetail::class);
+    }
+
+    public function period(){
+        return $this->belongsTo(Period::class);
+    }
+
+    public function venue(){
+        return $this->belongsTo(Venue::class);
+    }
+
 
 }

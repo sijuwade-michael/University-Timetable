@@ -10,8 +10,20 @@ class Lecturer extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable=[
-        'name',
-        'slug'
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'title',
+        'lastname',
+        'othernames',
+        'slug',
     ];
+
+    public function courses(){
+        return $this->hasMany(Course::class);
+    }
+
 }

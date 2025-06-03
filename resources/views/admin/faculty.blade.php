@@ -1,4 +1,5 @@
-@extends('admin.layout.dashboard') @section('content')
+@extends('admin.layout.dashboard') 
+@section('content')
 
 <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
     <div class="flex-grow-1">
